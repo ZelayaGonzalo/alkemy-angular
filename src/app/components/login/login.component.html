@@ -1,0 +1,27 @@
+<div class="container form-container">
+    <form class="d-flex flex-column" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Email address</label>
+            <input formControlName="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+            <ng-container *ngIf="email?.invalid && email?.value.length > 0">
+                <div id="emailHelp" class="form-text text-danger">Please use a valid email</div>
+            </ng-container>
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Password</label>
+            <input formControlName="password" type="password" class="form-control" id="exampleInputPassword1">
+          </div>
+
+          <button type="submit" class="btn primary-color" [disabled]="loginForm.invalid">Submit</button>
+          <ng-container *ngIf="loginForm.invalid">
+            <ng-container *ngIf="email?.value.length <= 0">
+                <div id="validatorEmail" class="form-text text-danger">*Email Required</div>
+            </ng-container>
+            
+            <ng-container *ngIf="password?.invalid">
+                <div id="validatorPassword" class="form-text text-danger">*Password Required</div>
+            </ng-container>
+            
+          </ng-container>
+    </form>
+</div>
