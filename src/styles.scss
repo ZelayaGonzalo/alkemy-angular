@@ -1,1 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
+.primary-color{
+    background-color: #FFA210 !important;
+}
+.primary-font{
+    color: #FFA210 !important;
+}
+.font-color{
+    color: #333333;
+}
+
+body{
+    background-image: url(./assets/images/dot-grid.jpeg);
+    background-repeat: repeat;
+    min-height: 100vh;
+}

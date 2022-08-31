@@ -1,0 +1,40 @@
+.title{
+    font-family: 'menu_font';
+    min-width: 250px;
+    font-size: 50px;
+    text-align: center;
+    align-self: center;
+}
+.summary{
+    margin: 10px;
+    min-width: 250px;
+    width: 200px;
+    height: 120px;
+    border-color: #FFA210 !important;
+    align-self: center;
+}
+.card{
+    margin-top: 20px;
+    width: 250px;
+    cursor: pointer;
+    img{
+        width: 100%;
+        background-color: aliceblue;
+        height: 100px;
+    }
+}
+
+@media (max-width: 768px) {
+    .card{
+        display: flex;
+        flex-direction: row;
+        margin-top: 20px;
+        width: 98vw;
+        cursor: pointer;
+        img{
+            width: 30%;
+            background-color: aliceblue;
+            height: 100px;
+        }
+    }
+}
