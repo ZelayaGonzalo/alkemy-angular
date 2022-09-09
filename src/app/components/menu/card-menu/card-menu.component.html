@@ -1,0 +1,21 @@
+<div class="card position-relative">
+    <img class="card-img-top" [src]="data.image" alt="card-image">
+    <div class="card-body">
+        <p class="card-text text-center">{{data.title}}</p>
+        <ng-container *ngIf="data.pricePerServing">
+            <div class="position-absolute card-footer d-flex align-items-center justify-content-between primary-font">
+                <div class="details d-flex">       
+                    <div>
+                        <fa-icon [icon]="hearticon"></fa-icon>
+                        {{data.healthScore}}
+                    </div>
+                    <ng-container *ngIf="data.vegan">
+                        <fa-icon [icon]="veganIcon" style="margin-left:10px"></fa-icon>
+                    </ng-container>
+                </div>
+                <div class="price"><fa-icon [icon]="priceIcon"></fa-icon>{{(data.pricePerServing /100).toFixed(2)}}</div>
+            </div>
+        </ng-container>
+    </div>
+    
+</div>

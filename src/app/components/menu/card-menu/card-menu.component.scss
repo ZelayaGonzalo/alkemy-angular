@@ -1,0 +1,40 @@
+.card{
+    margin-top: 20px;
+    width: 250px;
+    height: 250px;
+    cursor: pointer;
+    img{
+        width: 100%;
+        background-color: aliceblue;
+        height: 140px;
+    }
+    .card-footer{
+        bottom: 0;
+        right:0;
+        width:100%;
+        background-color: transparent;
+        height: 22px;
+        font-size: 14px;
+        font-weight: bold;
+        padding: 5px;
+    }
+}
+
+@media (max-width: 768px) {
+    .card{
+        height: 120px;
+        display: flex;
+        flex-direction: row;
+        width: 95vw;
+        cursor: pointer;
+        img{
+            min-width: 120px;
+            max-width: 150px;
+            background-color: aliceblue;
+            height: 100%;
+        }
+        .card-footer{
+            width: calc(100% - 150px);
+        }
+    }
+}
