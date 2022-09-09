@@ -3,58 +3,68 @@
         <h1 class="title primary-font">Today's Menu</h1>
         <ul class="container d-flex flex-column border rounded summary">
             <li class="container d-flex flex-row justify-content-between ">
-                <p>Price</p>
-                <p>$20000</p>
+                <p>
+                    <fa-icon [icon]="priceIcon" class="primary-font"></fa-icon>
+                    Price</p>
+                <p>{{getCumulativePrice()|currency}}</p>
+            </li>
+            <li class="container d-flex flex-row justify-content-between">
+                <p>
+                    <fa-icon [icon]="timerIcon" class="primary-font"></fa-icon>
+                    Prep. time
+                </p>
+                <p>{{getCumulativePrepTime()}} min</p>
             </li>
             <li class="container d-flex flex-row justify-content-between ">
-                <p>Prep. time</p>
-                <p>$20000</p>
-            </li>
-            <li class="container d-flex flex-row justify-content-between ">
-                <p>HealthScore</p>
-                <p>$20000</p>
+                <p>
+                    <fa-icon [icon]="hearticon" class="primary-font"></fa-icon>
+                    HealthScore
+                </p>
+                <p>{{getCumulativeHealthScore()}}</p>
             </li>
             
         </ul>
     </div>
-   <div class="menu-list">
-        <div class="row justify-content-center">
-            <div class="col d-flex justify-content-center">
-                <div class="card">
-                    <img class="card-img-top" alt="card-image">
-                    <div class="card-body">
-                        <p class="card-text">Card Text Example</p>
-                    </div>
-                </div>
+    <ng-container *ngIf="isLoading;else menuList">
+        <div class="d-flex justify-content-center align-items-center" style="height: 150px;">
+            <div class="spinner-border" role="status">
+              <span class="visually-hidden">Loading...</span>
             </div>
-            <div class="col d-flex justify-content-center">
-                <div class="card">
-                    <img class="card-img-top" alt="card-image">
-                    <div class="card-body">
-                        <p class="card-text">Card Text Example</p>
+          </div>
+    </ng-container>
+    <ng-template #menuList>
+        <div class="menu-list">
+            <div class="row justify-content-center">
+                <ng-container *ngIf="menuItems.length > 0;else emptyList">
+                    <div class="col d-flex justify-content-center" *ngFor="let item of menuItems">
+                        <app-card-menu [data]="item" (click)="showMenuDetails(item.id,item.deleteID)"></app-card-menu>
+                    </div>   
+                </ng-container>
+                <ng-template #emptyList>
+                    <div class="col d-flex justify-content-center">
+                        <h4>Nothing to show</h4>
                     </div>
-                </div>
-                
+                </ng-template>
             </div>
-            
+       </div>
+    </ng-template>
+  
+   <ng-container *ngIf="isLogged && menuItems.length < 4;else loginMessage">
+        <div class="container d-flex flex-column justify-content-center align-items-center" style="margin-top: 25px;">
+            <a routerLink="/browse"><button class="btn primary-color fw-bold" >Add Plate</button></a>
         </div>
-        <div class="row ">
-            <div class="col d-flex justify-content-center">
-                <div class="card">
-                    <img class="card-img-top" alt="card-image">
-                    <div class="card-body">
-                        <p class="card-text">Card Text Example</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col d-flex justify-content-center">
-                <div class="card">
-                    <img class="card-img-top" alt="card-image">
-                    <div class="card-body">
-                        <p class="card-text">Card Text Example</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-   </div>
+   </ng-container>
+   <ng-template #loginMessage>
+    <div class="container d-flex justify-content-center">
+        <p><a routerLink="/login" class="primary-font">Log in</a> to see options</p>
+    </div>
+   </ng-template>
 </div>
+
+<ng-container *ngIf="showDetailsWindow">
+    <app-details-menu [isAdding]="false" [deleteID]="targetDeleteID" [menuID]="detailsTarget" (remove)="removedFood()" (close)="closeDetailsWindow()" class="modal show" id="exampleModal" tabindex="0" aria-labelledby="exampleModalLabel" style="display: block;">
+
+    </app-details-menu>
+</ng-container>
+
+<swal #swalError title="Error" text="errorMsg" iconColor="#FFA210" confirmButtonColor="#FFA210" confirmButtonText="Close" icon="error"></swal>

@@ -1,0 +1,16 @@
+.top{
+    max-width: 800px;
+    position: relative;
+    .search-icon{
+        position: absolute;
+        right: 20px;
+        top: 5px;
+    }
+}
+a{
+    cursor: pointer;
+}
+.selected{
+    background-color: #FFA210 !important;
+    color: white;
+}

@@ -1,0 +1,61 @@
+<div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <ng-container *ngIf="isLoading;else data">
+        <div class="d-flex justify-content-end" style="padding:5px">
+          <button type="button" class="btn-close align-self-start" (click)="closeModal()" aria-label="Close"></button>
+        </div>
+        <div class="d-flex justify-content-center align-items-center" style="height: 150px;">
+          <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+      </ng-container>
+      <ng-template #data>
+        <div class="modal-header d-flex" style="padding:5px">
+          <img style="height: 50px;width: 50px;" [src]="menuData.image"  alt="foodImage">
+          <p class="modal-title align-self-start" id="exampleModalLabel">{{menuData.title}}</p>
+          <button type="button" class="btn-close align-self-start" style="padding-top: 25px;" (click)="closeModal()" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+              <div class="col">
+                <fa-icon [icon]="timerIcon" class="primary-font" title="Preparation time"></fa-icon> :
+                <span> {{menuData.readyInMinutes}} min</span>
+              </div>
+              <div class="col">
+                <fa-icon [icon]="hearticon" class="primary-font" title="Health Score"></fa-icon> :
+                <span>{{menuData.healthScore}}</span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <fa-icon [icon]="veganIcon" title="is Vegan?" class="primary-font"></fa-icon> :
+                <span>{{menuData.vegan ? 'Yes': 'No'}}</span>
+              </div>
+              <div class="col">
+                <fa-icon [icon]="priceIcon" class="primary-font" title="Price"></fa-icon> :
+              <span>{{ (menuData.pricePerServing / 100).toFixed(2)}}</span>
+            </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <ng-container *ngIf="isLogged;else sendToLogin">
+            <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
+            <ng-container *ngIf="isAdding;else delete">
+              <button type="button" class="btn primary-color text-white" (click)="addToMenu()">Add to Menu</button>
+            </ng-container>
+            <ng-template #delete>
+              <button type="button" class="btn btn-danger text-white" (click)="deleteFromMenu()">Remove</button>
+            </ng-template>
+          </ng-container>
+          <ng-template #sendToLogin>
+            <p><a routerLink="/login" class="primary-font">Log in</a> to see options</p>
+          </ng-template>
+        </div>
+      </ng-template>
+      
+    </div>
+    <swal #swalError title="Error" text="errorMsg" iconColor="#FFA210" confirmButtonColor="#FFA210" confirmButtonText="Close" icon="error"></swal>
+    <swal #swalSuccess title="Succes" text="Added Succesfully" iconColor="#FFA210" confirmButtonColor="#FFA210" confirmButtonText="Close" icon="success"></swal>
+    
+  </div>

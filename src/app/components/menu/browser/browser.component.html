@@ -1,0 +1,60 @@
+<div class="container d-flex flex-column">
+    <div class="container top">
+        <input [formControl]="search" type="text" class="form-control" placeholder="Start search...">
+        <fa-icon [icon]="searchIcon" class="search-icon"></fa-icon>
+        <div class="container d-flex justify-content-around " style="margin-top: 10px;">
+            <div class="container d-flex align-items-center" >
+                <label>Diet: </label>
+                <select [formControl]="diet" class="form-select" aria-label="Select diet" style="max-width: 200px;">
+                    <option value=""> None </option>
+                    <option value="vegetarian"> Vegetarian </option>
+                    <option value="vegan"> Vegan </option>
+                </select>
+            </div>
+           
+            <div class="container d-flex align-items-center" >
+                <label>Sort: </label>
+                <select [formControl]="sort" class="form-select" aria-label="Select sorting type" style="max-width: 200px;">
+                    <option value=""> None </option>
+                    <option value="popularity"> Popularity</option>
+                    <option value="price"> Price </option>
+                    <option value="random"> Random </option>
+                </select>
+            </div>
+           
+        </div>
+    </div>
+    <div class="row results">
+        <ng-container *ngIf="totalResults === 0">
+            <div class="container" style="margin-top: 20px;text-align:center">
+                <h4>No Results found</h4>
+            </div>
+        </ng-container>
+        <ng-container *ngIf="totalResults < 0">
+            <div class="container" style="margin-top: 20px;text-align:center">
+                <h4>Start typing to search</h4>
+            </div>
+        </ng-container>
+        <div class="col d-flex justify-content-sm-center justify-content-start" *ngFor="let result of results">
+            <app-card-menu [data]="result" (click)="showDetailsModal(result.id)"></app-card-menu>
+        </div>
+    </div>
+    <ng-container *ngIf="totalResults > 12">
+        <nav aria-label="Search results pages" [ngStyle]="{'margin-top':'25px'}"> 
+            <ul class="pagination d-flex flex-wrap justify-content-center">
+                <li class="page-item" *ngFor="let page of pages;let i=index">
+                    <a class="page-link primary-font" [ngClass]="currentPage === i ? 'primary-color text-white':''" [id]="'page'+i" (click)="changePage(i)">{{i+1}}</a>
+                </li>
+            </ul>
+        </nav>
+    </ng-container>
+   
+</div>
+
+
+
+<ng-container *ngIf="showDetails" >
+    <app-details-menu [isAdding]="true" [menuID]="detailsTarget" (close)="closeDetailsModal()" class="modal show" id="exampleModal" tabindex="0" aria-labelledby="exampleModalLabel" style="display: block;">
+        
+      </app-details-menu>
+</ng-container>

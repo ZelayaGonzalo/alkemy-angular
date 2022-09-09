@@ -3,8 +3,18 @@
         <a routerLink="/">
             <img src="../../../assets/images/Alacarta_Logo_Transparent.png" alt="logo">
         </a>
-        <a routerLink="/login">
-            <button type="button" class="btn btn-warning">Login</button>
-        </a>
+        <ng-container *ngIf="!isAuthorized;else welcomeBlock">
+            <a routerLink="/login">
+                <button type="button" class="btn primary-color">Login</button>
+            </a>
+        </ng-container>
+        <ng-template #welcomeBlock>
+            
+            <div class="d-flex align-items-center">
+                <p class="fw-bold" style="padding-right: 5px;">Welcome!</p>
+                <button type="button" class="btn primary-color" (click)="onLogout()">Logout</button>
+            </div>
+        </ng-template>
+       
     </div>
 </nav>
