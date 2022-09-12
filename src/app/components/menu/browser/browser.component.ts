@@ -1,8 +1,9 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit, ViewChild} from '@angular/core';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { FormControl, Validators } from '@angular/forms';
 import { FoodService } from 'src/app/services/food.service';
 import { debounceTime } from 'rxjs';
+import { SwalComponent } from '@sweetalert2/ngx-sweetalert2';
 
 
 @Component({
@@ -11,6 +12,8 @@ import { debounceTime } from 'rxjs';
   styleUrls: ['./browser.component.scss']
 })
 export class BrowserComponent implements OnInit {
+  @ViewChild('swalError')
+  public readonly swalError!: SwalComponent;
   //Icons
   searchIcon = faMagnifyingGlass
 
@@ -62,7 +65,8 @@ export class BrowserComponent implements OnInit {
           this.pages = Array(Math.trunc(this.totalResults/12)).fill(0).map((x,i)=>i);
         },
         error:err=>{
-          console.log(err)
+          this.swalError.fire()
+          this.swalError.text ='Error getting data ' + err.error.message
         }
       }
       )
