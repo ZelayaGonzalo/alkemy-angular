@@ -48,13 +48,18 @@
             </div>
        </div>
     </ng-template>
-  
-   <ng-container *ngIf="isLogged && menuItems.length < 4;else loginMessage">
+    <ng-container  *ngIf="menuItems.length >= 4 && isLogged">
+        <div class="container d-flex flex-column justify-content-center align-items-center fw-bold" style="padding-top: 20px;">
+            <h4>Menu is Full</h4>
+        </div>
+    </ng-container>
+   <ng-container *ngIf="isLogged;else loginMessage">
         <div class="container d-flex flex-column justify-content-center align-items-center" style="margin-top: 25px;">
             <a routerLink="/browse"><button class="btn primary-color fw-bold" >Add Plate</button></a>
         </div>
    </ng-container>
    <ng-template #loginMessage>
+   
     <div class="container d-flex justify-content-center">
         <p><a routerLink="/login" class="primary-font">Log in</a> to see options</p>
     </div>
