@@ -37,7 +37,6 @@ export class BrowserComponent implements OnInit {
       debounceTime(500),
     )
     .subscribe(()=>{
-      console.log(this.search.invalid)
       this.onSearch(this.search.invalid,0)
     })
     this.sort.valueChanges.pipe(
@@ -61,7 +60,6 @@ export class BrowserComponent implements OnInit {
           this.results = data.results
           this.totalResults = data.totalResults
           this.pages = Array(Math.trunc(this.totalResults/12)).fill(0).map((x,i)=>i);
-          console.log(this.results, data,'pages',this.pages)
         },
         error:err=>{
           console.log(err)

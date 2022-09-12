@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -8,6 +8,12 @@ import { DayMenu, MealPlan, MenuInfo, MenuSimple } from '../models/FoodModels';
   providedIn: 'root'
 })
 export class FoodService {
+
+  headers:HttpHeaders = new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+    'Access-Control-Allow-Origin': '*'
+  });
 
   url = environment.foodApiURL
   apiKey=environment.foodApiKey
@@ -38,7 +44,7 @@ export class FoodService {
       type: 'RECIPE',
       value: menu
     }
-    return this.http.post(`${this.url}mealplanner/${this.user}/items?${this.apiKey}&hash=${this.userHash}`,newDayPlate)
+    return this.http.post(`${this.url}mealplanner/${this.user}/items?${this.apiKey}&hash=${this.userHash}`,newDayPlate,)
   }
   deleteFood(id:number):Observable<any>{
     return this.http.delete(`${this.url}mealplanner/${this.user}/items/${id}?${this.apiKey}&hash=${this.userHash}`)

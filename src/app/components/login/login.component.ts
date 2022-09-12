@@ -47,7 +47,6 @@ export class LoginComponent implements OnInit {
         
       },
       error:err=>{
-        console.log(err)
         this.swalError.fire()
         this.swalError.text = "Invalid user or password"
         this.isLoading = false

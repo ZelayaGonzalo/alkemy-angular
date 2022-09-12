@@ -21,7 +21,6 @@ export class MenuComponent implements OnInit {
   
   //MenuList
   menuItems:MenuInfo[] = []
-  veganMenuItems:MenuInfo[] = []
   isLoading = false
 
   //Details
@@ -86,7 +85,7 @@ export class MenuComponent implements OnInit {
     let sum = 0
     this.menuItems.forEach(
       menu=>{
-        sum += menu.pricePerServing
+        sum += (menu.pricePerServing)
       }
     )
     return (sum/100).toFixed(2)
@@ -98,21 +97,11 @@ export class MenuComponent implements OnInit {
         sum += (menu.readyInMinutes)
       }
     )
-    this.veganMenuItems.forEach(
-      menu=>{
-        sum += (menu.readyInMinutes)
-      }
-    )
     return sum
   }
   getCumulativeHealthScore():number{
     let sum = 0
     this.menuItems.forEach(
-      menu=>{
-        sum += (menu.healthScore)
-      }
-    )
-    this.veganMenuItems.forEach(
       menu=>{
         sum += (menu.healthScore)
       }
